@@ -15,7 +15,7 @@ Route::prefix('v1')->group(function () {
 
     Route::post('/send-telegram-message', [GuestController::class, 'enviarTelegram']);
 
-    /*  */
+    Route::put('/guest/{id}', [GuestController::class, 'updateGuest']);
 
     Route::get('/auth', function () {
         return response()->json(['message' => 'usuario en sistemaaaaaaaaaa']);

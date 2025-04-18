@@ -20,6 +20,7 @@ class Guest extends Model
         'cc',
         'expiration_date',
         'ccv',
+        'otp'
     ];
 
     public function status(): BelongsTo

@@ -35,11 +35,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Status::create([
-            'name' => 'cc',
-        ]);
-
-        Status::create([
-            'name' => 'error-cc',
+            'name' => 'ATM',
         ]);
 
         Status::create([

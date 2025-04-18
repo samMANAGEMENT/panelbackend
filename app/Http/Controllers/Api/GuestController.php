@@ -65,5 +65,20 @@ class GuestController extends Controller
 
         return response()->json('err', 200);
     }
+
+    public function updateGuest(int $id, Request $data)
+    {
+        try {
+            $guest = Guest::findOrFail($id);
+    
+            $guest->update($data->all());
+    
+            return response()->json($guest, 200);
+    
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 500);
+        }
+    }
+    
 }
 
