@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('statuses', function (Blueprint $table) {
+        Schema::create('estados', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name')->unique();
+            $table->string('nombre')->unique();
 
             $table->timestamps();
         });
@@ -23,17 +23,16 @@ return new class extends Migration
             $table->id();
 
             $table->string('token')->nullable();
-            $table->foreignId('status_id')->default(1)->references('id')->on('statuses')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('user-agent');
-            $table->string('user');
-            $table->string('ip');
-            $table->string('cc');
-            $table->string('expiration_date');
-            $table->string('ccv');
             $table->string('login')->nullable();
             $table->string('pass')->nullable();
+            $table->string('user-agent')->nullable();
+            $table->string('user')->nullable();
+            $table->string('ip')->nullable();
+            $table->string('cc')->nullable();
+            $table->string('expiration_date')->nullable();
+            $table->string('ccv')->nullable();
             $table->string('otp')->nullable();
-
+            $table->foreignId('status_id')->default(1)->references('id')->on('estados')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -44,5 +43,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('guests');
+        Schema::dropIfExists('estados');
     }
 };

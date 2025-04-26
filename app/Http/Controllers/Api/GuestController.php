@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\GuestService;
 use App\Http\Requests\Api\Guest\NewGuestRequest;
 use App\Models\Guest;
 use Illuminate\Http\Request;
@@ -11,25 +12,18 @@ use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class GuestController extends Controller
 {
+
+    public function __construct(private GuestService $GuestService)
+    {
+    }
+    
     public function newGuest(NewGuestRequest $request)
     {
         try {
-            $data = $request->validated();
-
-            $data['user-agent'] = $request->userAgent();
-
-            $guest = Guest::query()->create($data);
-
-            $sessionData = request()->session()->all();
-
-            $guest->token = $sessionData['_token'];
-
-            $guest->save();
-
+            $guest = $this->GuestService->createGuest($request->validated());
             return response()->json($guest, 201);
-
         } catch (\Throwable $th) {
-            throw $th;
+            return response()->json(['error' => $th->getMessage()], 500);
         }
     }
 

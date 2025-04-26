@@ -10,9 +10,9 @@ class Status extends Model
 {
     use HasFactory;
 
-    protected $table = 'statuses';
+    protected $table = 'estados';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['nombre'];
 
     public function guests(): HasMany
     {

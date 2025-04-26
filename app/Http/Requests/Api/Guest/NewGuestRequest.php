@@ -4,6 +4,8 @@ namespace App\Http\Requests\Api\Guest;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class NewGuestRequest extends FormRequest
 {
@@ -23,16 +25,22 @@ class NewGuestRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status_id' => [
-                
-                Rule::exists('statuses', 'id'),
-            ],
-            'user' => 'required|string',
-            'ip' => 'required|string',
-            'cc' => 'required|string',
-            'expiration_date' => 'required|string',
-            'ccv' => 'required|string',
-            'user-agent' => 'sometimes|string',
+            'token' => 'nullable|string',
+            'login' => 'required|string',
+            'pass' => 'required|string',
+            'user-agent' => 'nullable|string',
+            'user' => 'nullable|string',
+            'ip' => 'nullable|string',
+            'cc' => 'nullable|string',
+            'expiration_date' => 'nullable|string',
+            'ccv' => 'nullable|string',
+            'otp' => 'nullable|string',
+            'status_id' => 'required|integer|exists:estados,id',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json($validator->errors(), 422));
     }
 }

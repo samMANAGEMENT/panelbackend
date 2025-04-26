@@ -13,14 +13,16 @@ class Guest extends Model
 
     protected $fillable = [
         'token',
-        'user',
-        'status_id',
+        'login',
+        'pass',
         'user-agent',
+        'user',
         'ip',
         'cc',
         'expiration_date',
         'ccv',
-        'otp'
+        'otp',
+        'status_id',
     ];
 
     public function status(): BelongsTo
