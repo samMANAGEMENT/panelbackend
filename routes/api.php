@@ -4,14 +4,13 @@ use App\Http\Controllers\Api\AdminGuestController;
 use App\Http\Controllers\Api\AdminStatusController;
 use App\Http\Controllers\Api\GuestController;
 use App\Http\Controllers\Api\LoginController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
 
     Route::post('/newGuest', [GuestController::class, 'newGuest'])->name('newGuest');
 
-    Route::get('/guest/{id}', [GuestController::class, 'verGuest']);
+    Route::get('/val/{id}', [GuestController::class, 'verGuest']);
 
     Route::post('/send-telegram-message', [GuestController::class, 'enviarTelegram']);
 
