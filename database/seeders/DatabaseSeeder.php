@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Status::create([
-            'nombre' => 'Otp',
+            'nombre' => 'OTP',
         ]);
 
         Status::create([
