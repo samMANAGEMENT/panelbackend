@@ -19,7 +19,10 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'https://prestamopropulsorverified.lat',
+        'https://www.prestamopropulsorverified.lat',
+    ],
 
     'allowed_origins_patterns' => [],
 
