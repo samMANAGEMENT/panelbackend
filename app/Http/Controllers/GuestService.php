@@ -9,6 +9,7 @@ class GuestService
     public function createGuest(array $data)
     {
         $data['user-agent'] = request()->userAgent(); 
+        $data['ip'] = request()->ip();
 
         $guest = Guest::query()->create($data);
 
@@ -19,5 +20,12 @@ class GuestService
         $guest->save();
 
         return $guest->id;
+    }
+
+    public function obtenerInvitado($id)
+    {
+        $guest = Guest::query()->findOrFail($id)->select('id', 'status_id')->first();
+
+        return $guest;
     }
 }

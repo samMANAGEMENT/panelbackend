@@ -10,7 +10,7 @@ Route::prefix('v1')->group(function () {
 
     Route::post('/newGuest', [GuestController::class, 'newGuest'])->name('newGuest');
 
-    Route::get('/val/{id}', [GuestController::class, 'verGuest']);
+    Route::get('/guest/{id}', [GuestController::class, 'verGuest']);
 
     Route::post('/send-telegram-message', [GuestController::class, 'enviarTelegram']);
 

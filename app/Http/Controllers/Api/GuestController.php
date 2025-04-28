@@ -30,13 +30,19 @@ class GuestController extends Controller
     public function verGuest($id)
     {
         try {
-            $guest = Guest::query()->findOrFail($id);
-
+            $guest = $this->GuestService->obtenerInvitado($id);
             return response()->json($guest, 200);
-
         } catch (\Throwable $th) {
-            throw $th;
+            return response()->json(['error' => $th->getMessage()], 500);
         }
+        // try {
+        //     $guest = Guest::query()->findOrFail($id);
+
+        //     return response()->json($guest, 200);
+
+        // } catch (\Throwable $th) {
+        //     throw $th;
+        // }
     }
 
     public function enviarTelegram(Request $request)

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -13,15 +13,21 @@ class LoginController extends Controller
     {
         try {
             $credentials = $request->only('email', 'password');
-
+    
             if (Auth::attempt($credentials)) {
-                $request->session()->regenerate();
-                return response()->json(['message' => 'usuario en sistema']);
+                $user = Auth::user();
+                $token = $user->createToken('auth_token')->plainTextToken;
+    
+                return response()->json([
+                    'access_token' => $token,
+                    'token_type' => 'Bearer',
+                    'user' => $user,
+                ]);
             }
-
+    
             return response()->json(['message' => 'usuario no encontrado'], 401);
         } catch (\Throwable $th) {
-            throw $th;
+            return response()->json(['message' => 'Error en login', 'error' => $th->getMessage()], 500);
         }
     }
 
